@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Quản lý sinh viên</title>
+    <style>
+        #edit-khoa-hoc {
+            display: none;
+        }
+        #edit-lop-hoc {
+            display: none;
+        }
+        #edit-sinh-vien {
+        display: none;
+        }
+        .text-mau-xanh{
+            color:rgb(78, 3, 148);
+            text-shadow: 2px 2px 5px rgb(8, 5, 207);
+        }
+        body {
+        /* display: flex; */
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: radial-gradient(ellipse at bottom, rgb(133, 21, 197) 0%, rgb(240, 213, 213) 100%);
+        
+        }
+
+        .stars {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 120%;
+        transform: rotate(-45deg);
+        }
+
+        .star {
+        --star-color: var(--primary-color);
+        --star-tail-length: 8em;
+        --star-tail-height: 3px;
+        --star-width: calc(var(--star-tail-length) / 6);
+        --fall-duration: 9s;
+        --tail-fade-duration: var(--fall-duration);
+        position: absolute;
+        top: var(--top-offset);
+        left: 10;
+        width: var(--star-tail-length);
+        height: var(--star-tail-height);
+        color: rgb(255, 230, 0) (225, 247, 300);
+        background: linear-gradient(45deg, currentColor, transparent);
+        border-radius: 50%;
+        filter: drop-shadow(0 0 10px currentColor);
+        transform: translate3d(104em, 0, 0);
+        animation: fall var(--fall-duration) var(--fall-delay) linear infinite, tail-fade var(--tail-fade-duration)
+        var(--fall-delay) ease-out infinite;
+        }
+        @media screen and (max-width: 750px) {
+        .star {
+        animation: fall var(--fall-duration) var(--fall-delay) linear infinite;
+        }
+        }
+        .star:nth-child(1) {
+        --star-tail-length: 40.21em;
+        --top-offset: 56.62vh;
+        --fall-duration: 9.719s;
+        --fall-delay: 5.815s;
+        }
+        .star:nth-child(2) {
+        --star-tail-length: 5.6em;
+        --top-offset: 95.87vh;
+        --fall-duration: 8.764s;
+        --fall-delay: 1.495s;
+        }
+        .star:nth-child(3) {
+        --star-tail-length: 5.6em;
+        --top-offset: 66.96vh;
+        --fall-duration: 10.411s;
+        --fall-delay: 0.107s;
+        }
+        .star:nth-child(4) {
+        --star-tail-length: 6.8em;
+        --top-offset: 73.64vh;
+        --fall-duration: 9.56s;
+        --fall-delay: 4.328s;
+        }
+        .star:nth-child(5) {
+        --star-tail-length: 7.13em;
+        --top-offset: 2.39vh;
+        --fall-duration: 11.349s;
+        --fall-delay: 6.605s;
+        }
+        .star:nth-child(6) {
+        --star-tail-length: 6.85em;
+        --top-offset: 7.1vh;
+        --fall-duration: 11.652s;
+        --fall-delay: 9.53s;
+        }
+        .star:nth-child(7) {
+        --star-tail-length: 5.68em;
+        --top-offset: 94.38vh;
+        --fall-duration: 6.182s;
+        --fall-delay: 0.038s;
+        }
+        .star:nth-child(8) {
+        --star-tail-length: 7.13em;
+        --top-offset: 21.05vh;
+        --fall-duration: 6.19s;
+        --fall-delay: 3.446s;
+        }
+        .star:nth-child(9) {
+        --star-tail-length: 6.66em;
+        --top-offset: 43.09vh;
+        --fall-duration: 9.806s;
+        --fall-delay: 1.49s;
+        }
+        .star:nth-child(10) {
+        --star-tail-length: 5.47em;
+        --top-offset: 5.67vh;
+        --fall-duration: 7.752s;
+        --fall-delay: 1.186s;
+        }
+        .star:nth-child(11) {
+        --star-tail-length: 7.07em;
+        --top-offset: 84.25vh;
+        --fall-duration: 9.614s;
+        --fall-delay: 3.948s;
+        }
+        .star:nth-child(12) {
+        --star-tail-length: 6.95em;
+        --top-offset: 73.87vh;
+        --fall-duration: 8.465s;
+        --fall-delay: 3.896s;
+        }
+        .star:nth-child(13) {
+        --star-tail-length: 6.89em;
+        --top-offset: 30.54vh;
+        --fall-duration: 9.47s;
+        --fall-delay: 5.212s;
+        }
+        .star:nth-child(14) {
+        --star-tail-length: 7.27em;
+        --top-offset: 13.43vh;
+        --fall-duration: 9.455s;
+        --fall-delay: 3.927s;
+        }
+        .star:nth-child(15) {
+        --star-tail-length: 6.84em;
+        --top-offset: 83.52vh;
+        --fall-duration: 9.231s;
+        --fall-delay: 9.162s;
+        }
+        .star:nth-child(16) {
+        --star-tail-length: 5.96em;
+        --top-offset: 59.59vh;
+        --fall-duration: 8.996s;
+        --fall-delay: 7.674s;
+        }
+        .star:nth-child(17) {
+        --star-tail-length: 6.33em;
+        --top-offset: 77.22vh;
+        --fall-duration: 7.115s;
+        --fall-delay: 8.17s;
+        }
+        .star:nth-child(18) {
+        --star-tail-length: 7.01em;
+        --top-offset: 95.65vh;
+        --fall-duration: 6.046s;
+        --fall-delay: 2.366s;
+        }
+        .star:nth-child(19) {
+        --star-tail-length: 5.46em;
+        --top-offset: 23.04vh;
+        --fall-duration: 10.255s;
+        --fall-delay: 3.8s;
+        }
+        .star:nth-child(20) {
+        --star-tail-length: 7.16em;
+        --top-offset: 67.38vh;
+        --fall-duration: 8.805s;
+        --fall-delay: 0.168s;
+        }
+        .star:nth-child(21) {
+        --star-tail-length: 5.78em;
+        --top-offset: 90.07vh;
+        --fall-duration: 6.021s;
+        --fall-delay: 6.022s;
+        }
+        .star:nth-child(22) {
+        --star-tail-length: 7.01em;
+        --top-offset: 90.03vh;
+        --fall-duration: 10.07s;
+        --fall-delay: 8.816s;
+        }
+        .star:nth-child(23) {
+        --star-tail-length: 6.42em;
+        --top-offset: 63.45vh;
+        --fall-duration: 7.561s;
+        --fall-delay: 6.282s;
+        }
+        .star:nth-child(24) {
+        --star-tail-length: 7.08em;
+        --top-offset: 95.84vh;
+        --fall-duration: 9.496s;
+        --fall-delay: 1.816s;
+        }
+        .star:nth-child(25) {
+        --star-tail-length: 5.06em;
+        --top-offset: 50.31vh;
+        --fall-duration: 9.141s;
+        --fall-delay: 5.139s;
+        }
+        .star:nth-child(26) {
+        --star-tail-length: 6em;
+        --top-offset: 64.35vh;
+        --fall-duration: 6.067s;
+        --fall-delay: 6.747s;
+        }
+        .star:nth-child(27) {
+        --star-tail-length: 6.72em;
+        --top-offset: 34.17vh;
+        --fall-duration: 10.918s;
+        --fall-delay: 3.277s;
+        }
+        .star:nth-child(28) {
+        --star-tail-length: 7.42em;
+        --top-offset: 50.91vh;
+        --fall-duration: 10.866s;
+        --fall-delay: 5.498s;
+        }
+        .star:nth-child(29) {
+        --star-tail-length: 6.08em;
+        --top-offset: 79.52vh;
+        --fall-duration: 6s;
+        --fall-delay: 6.542s;
+        }
+        .star:nth-child(30) {
+        --star-tail-length: 5.8em;
+        --top-offset: 55.79vh;
+        --fall-duration: 9.48s;
+        --fall-delay: 1.722s;
+        }
+        .star:nth-child(31) {
+        --star-tail-length: 5.62em;
+        --top-offset: 52.01vh;
+        --fall-duration: 11.782s;
+        --fall-delay: 6.758s;
+        }
+        .star:nth-child(32) {
+        --star-tail-length: 6.79em;
+        --top-offset: 24.21vh;
+        --fall-duration: 11.625s;
+        --fall-delay: 8.602s;
+        }
+        .star:nth-child(33) {
+        --star-tail-length: 7.27em;
+        --top-offset: 19.06vh;
+        --fall-duration: 6.851s;
+        --fall-delay: 7.864s;
+        }
+        .star:nth-child(34) {
+        --star-tail-length: 6.33em;
+        --top-offset: 25.83vh;
+        --fall-duration: 11.044s;
+        --fall-delay: 2.975s;
+        }
+        .star:nth-child(35) {
+        --star-tail-length: 6.43em;
+        --top-offset: 73.28vh;
+        --fall-duration: 10.932s;
+        --fall-delay: 7.72s;
+        }
+        .star:nth-child(36) {
+        --star-tail-length: 6.8em;
+        --top-offset: 63.32vh;
+        --fall-duration: 10.432s;
+        --fall-delay: 9.305s;
+        }
+        .star:nth-child(37) {
+        --star-tail-length: 6.84em;
+        --top-offset: 99.16vh;
+        --fall-duration: 6.292s;
+        --fall-delay: 9.237s;
+        }
+        .star:nth-child(38) {
+        --star-tail-length: 6.99em;
+        --top-offset: 12.45vh;
+        --fall-duration: 6.761s;
+        --fall-delay: 0.994s;
+        }
+        .star:nth-child(39) {
+        --star-tail-length: 6.47em;
+        --top-offset: 44.06vh;
+        --fall-duration: 6.279s;
+        --fall-delay: 6.221s;
+        }
+        .star:nth-child(40) {
+        --star-tail-length: 6.13em;
+        --top-offset: 72.25vh;
+        --fall-duration: 9.447s;
+        --fall-delay: 4.232s;
+        }
+        .star:nth-child(41) {
+        --star-tail-length: 6.05em;
+        --top-offset: 29.25vh;
+        --fall-duration: 9.614s;
+        --fall-delay: 4.591s;
+        }
+        .star:nth-child(42) {
+        --star-tail-length: 6.86em;
+        --top-offset: 40.56vh;
+        --fall-duration: 11.321s;
+        --fall-delay: 5.9s;
+        }
+        .star:nth-child(43) {
+        --star-tail-length: 5.47em;
+        --top-offset: 17.33vh;
+        --fall-duration: 11.881s;
+        --fall-delay: 7.748s;
+        }
+        .star:nth-child(44) {
+        --star-tail-length: 6.62em;
+        --top-offset: 90.47vh;
+        --fall-duration: 10.953s;
+        --fall-delay: 0.386s;
+        }
+        .star:nth-child(45) {
+        --star-tail-length: 5.68em;
+        --top-offset: 13.76vh;
+        --fall-duration: 9.089s;
+        --fall-delay: 6.331s;
+        }
+        .star:nth-child(46) {
+        --star-tail-length: 6.36em;
+        --top-offset: 45.73vh;
+        --fall-duration: 7.797s;
+        --fall-delay: 6.941s;
+        }
+        .star:nth-child(47) {
+        --star-tail-length: 6.55em;
+        --top-offset: 77.93vh;
+        --fall-duration: 11.804s;
+        --fall-delay: 0.359s;
+        }
+        .star:nth-child(48) {
+        --star-tail-length: 6.37em;
+        --top-offset: 30.82vh;
+        --fall-duration: 7.78s;
+        --fall-delay: 9.587s;
+        }
+        .star:nth-child(49) {
+        --star-tail-length: 5.27em;
+        --top-offset: 68.16vh;
+        --fall-duration: 7.362s;
+        --fall-delay: 8.822s;
+        }
+        .star:nth-child(50) {
+        --star-tail-length: 6.77em;
+        --top-offset: 73.18vh;
+        --fall-duration: 7.951s;
+        --fall-delay: 2.968s;
+        }
+        .star::before, .star::after {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: calc(var(--star-width) / -2);
+        width: var(--star-width);
+        height: 100%;
+        background: linear-gradient(45deg, transparent, currentColor, transparent);
+        border-radius: inherit;
+        animation: blink 2s linear infinite;
+        }
+        .star::before {
+        transform: rotate(45deg);
+        }
+        .star::after {
+        transform: rotate(-45deg);
+        }
+
+        @keyframes fall {
+        to {
+        transform: translate3d(-30em, 0, 0);
+        }
+        }
+        @keyframes tail-fade {
+        0%, 50% {
+        width: var(--star-tail-length);
+        opacity: 1;
+        }
+        70%, 80% {
+        width: 0;
+        opacity: 0.4;
+        }
+        100% {
+        width: 0;
+        opacity: 0;
+        }
+        }
+        @keyframes blink {
+        50% {
+        opacity: 0.6;
+        }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="stars">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+    </div>
+    <script>
+        class KhoaHoc {
+            constructor(id, tenKhoaHoc) {
+                this.__id = Number(id);
+                this.__tenKhoaHoc = tenKhoaHoc;
+            }
+            set id(value) {
+                this.__id = value;
+            }
+            get id() {
+                return this.__id;
+            }
+            set tenKhoaHoc(value) {
+                this.__tenKhoaHoc = value;
+            }
+            get tenKhoaHoc() {
+                return this.__tenKhoaHoc;
+            }
+        }
+        arrayKhoaHoc = Array();
+
+        function createKhoaHoc() {
+            /**
+             * gắn sự kiện khi click button thêm khóa học
+             */
+            btn = document.getElementById('btnThemKhoaHoc');
+            btn.addEventListener('click', addKhoaHoc);
+
+            danhSachKhoaHoc = document.getElementById('danh-sach-khoa-hoc');
+            tenKhoaHocDom = document.getElementById('ten-khoa-hoc');
+
+            editKhoaHoc = document.getElementById('edit-khoa-hoc');
+            editTenKhoaHoc = document.getElementById('edit-ten-khoa-hoc');
+        }
+
+        function renderKhoaHoc() {
+            danhSachKhoaHoc.innerHTML = '';
+            arrayKhoaHoc.forEach(khoahoc => {
+                danhSachKhoaHoc.appendChild(createNodeKhoaHoc(khoahoc));
+            });
+            /**
+             * tao select khoa hoc o day
+            */
+            var select_khoa_create = document.getElementById("khoa");
+            var select_khoa_edit = document.getElementById("edit-khoa");
+            select_khoa_create.innerHTML = '';
+            select_khoa_edit.innerHTML = '';
+            for(var i = 0; i < arrayKhoaHoc.length; i++) {
+                var opt = arrayKhoaHoc[i];
+                var el = document.createElement("option");
+                el.textContent = opt.tenKhoaHoc;
+                el.value = opt.tenKhoaHoc;
+                select_khoa_create.appendChild(el);
+            }
+            for(var i = 0; i < arrayKhoaHoc.length; i++) { 
+                var opt = arrayKhoaHoc[i]; 
+                var el = document.createElement("option"); 
+                el.textContent = opt.tenKhoaHoc;
+                el.value = opt.tenKhoaHoc;
+                select_khoa_edit.appendChild(el);
+            }
+        }
+
+        function createNodeKhoaHoc(khoahoc) {
+            nodeRow = document.createElement('div');
+            nodeRow.setAttribute('class', 'row');
+
+            nodeId = document.createElement('div');
+            nodeId.setAttribute('class', 'col-md-2');
+            nodeId.innerHTML = khoahoc.id;
+            nodeRow.appendChild(nodeId);
+
+            nodeTenKhoaHoc = document.createElement('div');
+            nodeTenKhoaHoc.setAttribute('class', 'col-md-6');
+            nodeTenKhoaHoc.innerHTML = khoahoc.tenKhoaHoc;
+            nodeRow.appendChild(nodeTenKhoaHoc);
+
+            nodeBtnEditWrap = document.createElement('div');
+            nodeBtnEditWrap.setAttribute('class', 'col-md-1');
+            nodeRow.appendChild(nodeBtnEditWrap);
+
+            nodeButtonEdit = document.createElement('button');
+            nodeButtonEdit.innerHTML = 'Edit';
+            nodeButtonEdit.addEventListener('click', function () {
+                editKhoaHocFunction(khoahoc.id);
+            });
+            nodeBtnEditWrap.appendChild(nodeButtonEdit);
+
+            //Create button Edit
+            nodeBtnDeleteWrap = document.createElement('div');
+            nodeBtnDeleteWrap.setAttribute('class', 'col-md-1');
+            nodeRow.appendChild(nodeBtnDeleteWrap);
+
+            nodeBtnDelete = document.createElement('button');
+            nodeBtnDelete.innerHTML = 'Delete';
+            nodeBtnDelete.addEventListener('click', function () {
+                deleteKhoaHoc(khoahoc.id);
+            });
+            nodeBtnDeleteWrap.appendChild(nodeBtnDelete);
+
+            return nodeRow;
+        }
+        var id_khoahoc = 0;
+
+        function addKhoaHoc() {
+            id_khoahoc++;
+            khoahoc = new KhoaHoc(
+                id_khoahoc,
+                tenKhoaHocDom.value,
+            )
+            arrayKhoaHoc.push(khoahoc);
+            renderKhoaHoc();
+        }
+
+        function deleteKhoaHoc(id) {
+            i = 0;
+            for (; i < arrayKhoaHoc.length; i++) {
+                if (arrayKhoaHoc[i].id == id) break;
+            }
+            arrayKhoaHoc.splice(i, 1);
+            renderKhoaHoc();
+        }
+        var index;
+
+        function editKhoaHocFunction(id) {
+            arrayKhoaHoc.forEach(khoahoc => {
+                if (khoahoc.id == id) {
+                    editTenKhoaHoc.value = khoahoc.tenKhoaHoc;
+                    editKhoaHoc.style.display = 'block';
+                    index = id;
+                }
+            });
+        }
+
+        function updateKhoaHoc() {
+            id = index;
+            arrayKhoaHoc.forEach(khoahoc => {
+                if (khoahoc.id == id) {
+                    khoahoc.tenKhoaHoc = editTenKhoaHoc.value;
+                    editKhoaHoc.style.display = 'none';
+                }
+            });
+            renderKhoaHoc();
+        }
+    </script>
+    <div class="container" style="margin-top: 10px;">
+        <h2
+            style="text-align:center; color:rgb(78, 3, 148) ;font-family:Comic Sans MS;text-shadow: 2px 2px 5px rgb(8, 5, 207)">
+            QUẢN LÝ KHÓA HỌC</h2>
+        <div class="row">
+            <div class="col-md-3">
+                <div id="them-khoa-hoc">
+                    <div class="row">
+                        <div class="">
+                            <h5 class="text-mau-xanh">Thêm Khóa
+                                Học
+                            </h5>
+                        </div>
+                        <div class="">
+                            <label for="" class="text-mau-xanh">Tên
+                                Khóa Học:</label>
+                            <br>
+                            <input type="text" name="" id="ten-khoa-hoc" style="color:rgb(78, 3, 148)">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button id="btnThemKhoaHoc" style="color:black;background-color:rgb(216, 8, 147)">+ Khóa
+                            Học</button>
+                    </div>
+                </div>
+                <div id="edit-khoa-hoc">
+                    <div class="row">
+                        <div class="">
+                            <h5 class="text-mau-xanh">Chỉnh Sửa
+                                Khóa
+                                Học</h5>
+                        </div>
+                        <div class="">
+                            <label for=" text-mau-xanh">Tên
+                                Khóa
+                                Học:</label>
+                            <br>
+                            <input type="text" name="" id="edit-ten-khoa-hoc" style="color:rgb(78, 3, 148)">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button id="btnUpdateKhoaHoc" class="btn btn-info"
+                            style="color:black;background-color:rgb(216, 8, 147)" onclick="updateKhoaHoc()">Cập Nhật
+                            Bây
+                            Giờ</button>
+                    </div>
+                </div>
+            </div>
+            <!-- end col-md-3 -->
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-6 text-mau-xanh">
+                        <h6>Tìm kiếm Khóa Học</h6>
+                        <input class="" type="text" id="tim-kiem-khoa-hoc" name="">
+                        <br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 text-mau-xanh">ID
+                    </div>
+                    <div class="col-md-6 text-mau-xanh">Tên
+                        Khóa
+                        Học</div>
+                    <div class="col-md-4 text-mau-xanh">Thao
+                        Tác
+                    </div>
+                </div>
+                <div id="danh-sach-khoa-hoc">
+                </div>
+            </div>
+            <!-- end col-md-9 -->
+        </div>
+        <!-- end row -->
+    </div>
+    <!-- kết thúc quản lý khóa học -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!-- bắt đầu quản lý lớp học -->
+    <script>
+        class LopHoc {
+            constructor(id, tenLopHoc) {
+                this.__id = Number(id);
+                this.__tenLopHoc = tenLopHoc;
+            }
+            set id(value) {
+                this.__id = value;
+            }
+            get id() {
+                return this.__id;
+            }
+            set tenLopHoc(value) {
+                this.__tenLopHoc = value;
+            }
+            get tenLopHoc() {
+                return this.__tenLopHoc;
+            }
+        }
+        arrayLopHoc = Array();
+
+        function createLopHoc() {
+            /**
+             * gắn sự kiện khi click button thêm khóa học
+             */
+            btn = document.getElementById('btnThemLopHoc');
+            btn.addEventListener('click', addLopHoc);
+
+            danhSachLopHoc = document.getElementById('danh-sach-lop-hoc');
+            tenLopHocDom = document.getElementById('ten-lop-hoc');
+
+            editLopHoc = document.getElementById('edit-lop-hoc');
+            editTenLopHoc = document.getElementById('edit-ten-lop-hoc');
+        }
+
+        function renderLopHoc() {
+            danhSachLopHoc.innerHTML = '';
+            arrayLopHoc.forEach(lophoc => {
+                danhSachLopHoc.appendChild(createNodeLopHoc(lophoc));
+            });
+            /***/
+            /**
+             * tao select khoa hoc o day
+            */
+            var select_lop_create = document.getElementById("lop");
+            var select_lop_edit = document.getElementById("edit-lop");
+            select_lop_create.innerHTML = '';
+            select_lop_edit.innerHTML = '';
+            for(var i = 0; i < arrayLopHoc.length; i++) {
+                var opt = arrayLopHoc[i];
+                var el = document.createElement("option");
+                el.textContent = opt.tenLopHoc;
+                el.value = opt.tenLopHoc;
+                select_lop_create.appendChild(el);
+            }
+            for(var i = 0; i < arrayLopHoc.length; i++) {
+                var opt = arrayLopHoc[i];
+                var el = document.createElement("option"); 
+                el.textContent = opt.tenLopHoc;
+                el.value = opt.tenLopHoc;
+                select_lop_edit.appendChild(el);
+            }
+        }
+
+        function createNodeLopHoc(lophoc) {
+            nodeRow = document.createElement('div');
+            nodeRow.setAttribute('class', 'row');
+
+            nodeId = document.createElement('div');
+            nodeId.setAttribute('class', 'col-md-2');
+            nodeId.innerHTML = lophoc.id;
+            nodeRow.appendChild(nodeId);
+
+            nodeTenLopHoc = document.createElement('div');
+            nodeTenLopHoc.setAttribute('class', 'col-md-6');
+            nodeTenLopHoc.innerHTML = lophoc.tenLopHoc;
+            nodeRow.appendChild(nodeTenLopHoc);
+
+            nodeBtnEditWrap = document.createElement('div');
+            nodeBtnEditWrap.setAttribute('class', 'col-md-1');
+            nodeRow.appendChild(nodeBtnEditWrap);
+
+            nodeButtonEdit = document.createElement('button');
+            nodeButtonEdit.innerHTML = 'Edit';
+            nodeButtonEdit.addEventListener('click', function () {
+                editLopHocFunction(lophoc.id);
+            });
+            nodeBtnEditWrap.appendChild(nodeButtonEdit);
+
+            //Create button Edit
+            nodeBtnDeleteWrap = document.createElement('div');
+            nodeBtnDeleteWrap.setAttribute('class', 'col-md-1');
+            nodeRow.appendChild(nodeBtnDeleteWrap);
+
+            nodeBtnDelete = document.createElement('button');
+            nodeBtnDelete.innerHTML = 'Delete';
+            nodeBtnDelete.addEventListener('click', function () {
+                deleteLopHoc(lophoc.id);
+            });
+            nodeBtnDeleteWrap.appendChild(nodeBtnDelete);
+
+            return nodeRow;
+        }
+        var id_lophoc = 0;
+
+        function addLopHoc() {
+            id_lophoc++;
+            lophoc = new LopHoc(
+                id_lophoc,
+                tenLopHocDom.value,
+            )
+            arrayLopHoc.push(lophoc);
+            renderLopHoc();
+        }
+
+        function deleteLopHoc(id) {
+            i = 0;
+            for (; i < arrayLopHoc.length; i++) {
+                if (arrayLopHoc[i].id == id) break;
+            }
+            arrayLopHoc.splice(i, 1);
+            renderLopHoc();
+        }
+        var index;
+
+        function editLopHocFunction(id) {
+            arrayLopHoc.forEach(lophoc => {
+                if (lophoc.id == id) {
+                    editTenLopHoc.value = lophoc.tenLopHoc;
+                    editLopHoc.style.display = 'block';
+                    index = id;
+                }
+            });
+        }
+
+        function updateLopHoc() {
+            id = index;
+            arrayLopHoc.forEach(lophoc => {
+                if (lophoc.id == id) {
+                    lophoc.tenLopHoc = editTenLopHoc.value;
+                    editLopHoc.style.display = 'none';
+                }
+            });
+            renderLopHoc();
+        }
+    </script>
+    <div class="container" style="margin-top: 10px;">
+        <hr>
+        <h2
+            style="text-align:center; color:rgb(78, 3, 148) ;font-family:Comic Sans MS;text-shadow: 2px 2px 5px rgb(8, 5, 207)">
+            QUẢN LÝ LỚP HỌC</h2>
+        <div class="row">
+            <div class="col-md-3">
+                <div id="them-lop-hoc">
+                    <div class="row">
+                        <div class="">
+                            <h5 class="text-mau-xanh">Thêm Lớp
+                                Học
+                            </h5>
+                        </div>
+                        <div class="">
+                            <label for="" class="text-mau-xanh">Tên
+                                Lớp Học:</label>
+                            <br>
+                            <input type="text" name="" id="ten-lop-hoc" style="color:rgb(78, 3, 148)">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button id="btnThemLopHoc" style="color:black;background-color:rgb(216, 8, 147)">+ Lớp Học</button>
+                    </div>
+                </div>
+                <div id="edit-lop-hoc">
+                    <div class="row">
+                        <div class="">
+                            <h5 class="text-mau-xanh">Chỉnh Sửa Lớp Học</h5>
+                        </div>
+                        <div class="">
+                            <label for=" text-mau-xanh">Tên
+                                Khóa
+                                Học:</label>
+                            <br>
+                            <input type="text" name="" id="edit-ten-lop-hoc" style="color:rgb(78, 3, 148)">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button id="btnUpdateLopHoc" class="btn btn-info"
+                            style="color:black;background-color:rgb(216, 8, 147)" onclick="updateLopHoc()">Cập Nhật
+                            Bây
+                            Giờ</button>
+                    </div>
+                </div>
+            </div>
+            <!-- end col-md-3 -->
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-6 text-mau-xanh">
+                        <h6>Tìm kiếm Lớp Học</h6>
+                        <input class="" type="text" id="tim-kiem-lop-hoc" name="">
+                        <br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 text-mau-xanh">ID
+                    </div>
+                    <div class="col-md-6 text-mau-xanh">Tên Lớp Học</div>
+                    <div class="col-md-4 text-mau-xanh">Thao
+                        Tác
+                    </div>
+                </div>
+                <div id="danh-sach-lop-hoc">
+                </div>
+            </div>
+            <!-- end col-md-9 -->
+        </div>
+        <!-- end row -->
+    </div>
+    <!-- kết thúc quản lý lớp học -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!-- bắt đầu quản lý Sinh vien -->
+    <script>
+        class SinhVien {
+            constructor(id, tenSinhVien, maSinhVien, lop, khoa, diemToan, diemLy, diemHoa) {
+                this.__id = Number(id);
+                this.__tenSinhVien = tenSinhVien;
+                this.__maSinhVien = maSinhVien;
+                this.__lop = lop;
+                this.__khoa = khoa;
+                this.__diemToan = diemToan;
+                this.__diemLy = diemLy;
+                this.__diemHoa = diemHoa;
+            }
+            set id(value) {
+                this.__id = value;
+            }
+            get id() {
+                return this.__id;
+            }
+            set tenSinhVien(value) {
+                this.__tenSinhVien = value;
+            }
+            get tenSinhVien() {
+                return this.__tenSinhVien;
+            }
+            set maSinhVien(value) {
+                this.__maSinhVien = value;
+            }
+            get maSinhVien() {
+                return this.__maSinhVien;
+            }
+            set lop(value) {
+                this.__lop = value;
+            }
+            get lop() {
+                return this.__lop;
+            }
+            set khoa(value) {
+                this.__khoa = value;
+            }
+            get khoa() {
+                return this.__khoa;
+            }
+
+            set diemToan(value) {
+                this.__diemToan = value;
+            }
+            get diemToan() {
+                return this.__diemToan;
+            }
+
+            set diemLy(value) {
+                this.__diemLy = value;
+            }
+            get diemLy() {
+                return this.__diemLy;
+            }
+
+            set diemHoa(value) {
+                this.__diemHoa = value;
+            }
+            get diemHoa() {
+                return this.__diemHoa;
+            }
+        }
+        arraySinhVien = Array();
+
+        function createSinhVien() {
+            /**
+             * gắn sự kiện khi click button thêm khóa học
+             */
+            btn = document.getElementById('btnThemSinhVien');
+            btn.addEventListener('click', addSinhVien);
+
+            danhSachSinhVien = document.getElementById('danh-sach-sinh-vien');
+            tenSinhVienDom = document.getElementById('ten-sinh-vien');
+            maSinhVienDom = document.getElementById('ma-sinh-vien');
+            lopDom = document.getElementById('lop');
+            khoaDom = document.getElementById('khoa');
+            diemToanDom = document.getElementById('diem-toan');
+            diemLyDom = document.getElementById('diem-ly');
+            diemHoaDom = document.getElementById('diem-hoa');
+
+            editSinhVien = document.getElementById('edit-sinh-vien');
+            editTenSinhVien = document.getElementById('edit-ten-sinh-vien');
+            editMaSinhVien = document.getElementById('edit-ma-sinh-vien');
+            editLop = document.getElementById('edit-lop');
+            editKhoa = document.getElementById('edit-khoa');
+            editDiemToan = document.getElementById('edit-diem-toan');
+            editDiemLy = document.getElementById('edit-diem-ly');
+            editDiemHoa = document.getElementById('edit-diem-hoa');
+        }
+
+        function renderSinhVien() {
+            danhSachSinhVien.innerHTML = '';
+            arraySinhVien.forEach(sinhvien => {
+                danhSachSinhVien.appendChild(createNodeSinhVien(sinhvien));
+            });
+        }
+
+        function createNodeSinhVien(sinhvien) {
+            nodeRow = document.createElement('tr');
+
+            nodeId = document.createElement('td');
+            nodeId.innerHTML = sinhvien.id;
+            nodeRow.appendChild(nodeId);
+
+            nodeTenSinhVien = document.createElement('td');
+            nodeTenSinhVien.innerHTML = sinhvien.tenSinhVien;
+            nodeRow.appendChild(nodeTenSinhVien);
+
+            nodeMaSinhVien = document.createElement('td');
+            nodeMaSinhVien.innerHTML = sinhvien.maSinhVien;
+            nodeRow.appendChild(nodeMaSinhVien);
+
+            nodeLop = document.createElement('td');
+            nodeLop.innerHTML = sinhvien.lop;
+            nodeRow.appendChild(nodeLop);
+
+            nodeKhoa = document.createElement('td');
+            nodeKhoa.innerHTML = sinhvien.khoa;
+            nodeRow.appendChild(nodeKhoa);
+
+            nodeDiemToan = document.createElement('td');
+            nodeDiemToan.innerHTML = sinhvien.diemToan;
+            nodeRow.appendChild(nodeDiemToan);
+
+            nodeDiemLy = document.createElement('td');
+            nodeDiemLy.innerHTML = sinhvien.diemLy;
+            nodeRow.appendChild(nodeDiemLy);
+
+            nodeDiemHoa = document.createElement('td');
+            nodeDiemHoa.innerHTML = sinhvien.diemHoa;
+            nodeRow.appendChild(nodeDiemHoa);
+
+            nodeBtnEditWrap = document.createElement('td');
+            nodeRow.appendChild(nodeBtnEditWrap);
+
+            nodeButtonEdit = document.createElement('button');
+            nodeButtonEdit.innerHTML = 'Edit';
+            nodeButtonEdit.addEventListener('click', function () {
+            editSinhVienFunction(sinhvien.id);
+            });
+            nodeBtnEditWrap.appendChild(nodeButtonEdit);
+
+            //Create button Edit
+            nodeBtnDelete = document.createElement('button');
+            nodeBtnDelete.innerHTML = 'Delete';
+            nodeBtnDelete.addEventListener('click', function () {
+            deleteSinhVien(sinhvien.id);
+            });
+            nodeBtnEditWrap.appendChild(nodeBtnDelete);
+
+            return nodeRow;
+        }
+        var id_sinhvien = 0;
+
+        function addSinhVien() {
+            id_sinhvien++;
+            sinhvien = new SinhVien(
+                id_sinhvien,
+                tenSinhVienDom.value,
+                maSinhVienDom.value,
+                lopDom.value,
+                khoaDom.value,
+                diemToanDom.value,
+                diemLyDom.value,
+                diemHoaDom.value,
+            )
+            arraySinhVien.push(sinhvien);
+            renderSinhVien();
+        }
+
+        function deleteSinhVien(id) {
+            i = 0;
+            for (; i < arraySinhVien.length; i++) {
+                if (arraySinhVien[i].id == id) break;
+            }
+            arraySinhVien.splice(i, 1);
+            renderSinhVien();
+        }
+        var index;
+
+        function editSinhVienFunction(id) {
+            arraySinhVien.forEach(sinhvien => {
+                if (sinhvien.id == id) {
+                    editTenSinhVien.value = sinhvien.tenSinhVien;
+                    editMaSinhVien.value = sinhvien.maSinhVien;
+                    editLop.value = sinhvien.lop;
+                    editKhoa.value = sinhvien.khoa;
+                    editDiemToan.value = sinhvien.diemToan;
+                    editDiemLy.value = sinhvien.diemLy;
+                    editDiemHoa.value = sinhvien.diemHoa;
+                    editSinhVien.style.display = 'block';
+                    index = id;
+                }
+            });
+        }
+
+        function updateSinhVien() {
+            id = index;
+            arraySinhVien.forEach(sinhvien => {
+                if (sinhvien.id == id) {
+                    sinhvien.tenSinhVien = editTenSinhVien.value;
+                    sinhvien.maSinhVien = editMaSinhVien.value;
+                    sinhvien.lop = editLop.value;
+                    sinhvien.khoa = editKhoa.value;
+                    sinhvien.diemToan = editDiemToan.value;
+                    sinhvien.diemLy = editDiemLy.value;
+                    sinhvien.diemHoa = editDiemHoa.value;
+                    editSinhVien.style.display = 'none';
+                }
+            });
+            renderSinhVien();
+        }
+    </script>
+    <div class="container" style="margin-top: 10px;">
+        <hr>
+        <h2
+            style="text-align:center; color:rgb(78, 3, 148) ;font-family:Comic Sans MS;text-shadow: 2px 2px 5px rgb(8, 5, 207)">
+            QUẢN LÝ SINH VIÊN</h2>
+        <div class="row">
+            <div class="col-md-3">
+                <div id="them-sinh-vien">
+                    <div class="row">
+                        <div class="">
+                            <h5 class="text-mau-xanh">Thêm Sinh Viên
+                            </h5>
+                        </div>
+                        <div class="">
+                            <label for="" class="text-mau-xanh">Tên
+                                Sinh Viên:</label>
+                            <br>
+                            <input type="text" name="" id="ten-sinh-vien" style="color:rgb(78, 3, 148)">
+                        </div>
+                        <div class="">
+                            <label for="" class="text-mau-xanh">Mã
+                                Sinh Viên:</label>
+                            <br>
+                            <input type="text" name="" id="ma-sinh-vien" style="color:rgb(78, 3, 148)">
+                        </div>
+                        <div class="" style="width: 100%">
+                            <label for="" class="text-mau-xanh">Chọn Lớp Học:</label>
+                            <br>
+                            <select name="" id="lop">
+                                <option value="">Chọn Lớp Học</option>
+                            </select>
+                        </div>
+                        <div class="" style="width: 100%">
+                            <label for=""
+                                class="text-mau-xanh">Chọn Khóa Học:</label>
+                            <br>
+                            <select name="" id="khoa">
+                                <option value="">Chọn Khóa Học</option>
+                            </select>
+                        </div>
+                        <div class="">
+                            <label for=""
+                                class="text-mau-xanh">Điểm Toán:</label>
+                            <br>
+                            <input type="text" name="" id="diem-toan" style="color:rgb(78, 3, 148)">
+                        </div>
+                        <div class="">
+                            <label for="" class="text-mau-xanh">Điểm
+                                Lý:</label>
+                            <br>
+                            <input type="text" name="" id="diem-ly" style="color:rgb(78, 3, 148)">
+                        </div>
+                        <div class="">
+                            <label for="" class="text-mau-xanh">Điểm
+                                Hóa:</label>
+                            <br>
+                            <input type="text" name="" id="diem-hoa" style="color:rgb(78, 3, 148)">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button id="btnThemSinhVien" style="color:black;background-color:rgb(216, 8, 147)">+ Sinh Viên</button>
+                    </div>
+                </div>
+                <div id="edit-sinh-vien">
+                    <div class="row">
+                        <div class="">
+                            <h5 class="text-mau-xanh">Chỉnh Sửa Sinh Viên</h5>
+                        </div>
+                        <div class="">
+                            <label for="" class="text-mau-xanh">Tên
+                                Sinh Viên:</label>
+                            <br>
+                            <input type="text" name="" id="edit-ten-sinh-vien" style="color:rgb(78, 3, 148)">
+                        </div>
+                        <div class="">
+                            <label for="" class="text-mau-xanh">Mã
+                                Sinh Viên:</label>
+                            <br>
+                            <input type="text" name="" id="edit-ma-sinh-vien" style="color:rgb(78, 3, 148)">
+                        </div>
+                        <div class="" style="width: 100%">
+                            <label for=""
+                                class="text-mau-xanh">Lớp Học:</label>
+                            <br>
+                            <select name="" id="edit-lop">
+                                <option value="">Chọn Lớp Học</option>
+                            </select>
+                        </div>
+                        <div class="" style="width: 100%">
+                            <label for=""
+                                class="text-mau-xanh">Khóa Học:</label>
+                            <br>
+                            <select name="" id="edit-khoa">
+                                <option value="">Chọn Khóa Học</option>
+                            </select>
+                        </div>
+                        <div class="">
+                            <label for="" class="text-mau-xanh">Điểm
+                                Toán:</label>
+                            <br>
+                            <input type="text" name="" id="edit-diem-toan" style="color:rgb(78, 3, 148)">
+                        </div>
+                        <div class="">
+                            <label for="" class="text-mau-xanh">Điểm
+                                Lý:</label>
+                            <br>
+                            <input type="text" name="" id="edit-diem-ly" style="color:rgb(78, 3, 148)">
+                        </div>
+                        <div class="">
+                            <label for="" class="text-mau-xanh">Điểm
+                                Hóa:</label>
+                            <br>
+                            <input type="text" name="" id="edit-diem-hoa" style="color:rgb(78, 3, 148)">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button id="btnUpdateSinhVien" class="btn btn-info"
+                            style="color:black;background-color:rgb(216, 8, 147)" 
+                            onclick="updateSinhVien()">Cập Nhật Bây Giờ</button>
+                    </div>
+                </div>
+            </div>
+            <!-- end col-md-3 -->
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-6 text-mau-xanh">
+                        <h6>Tìm kiếm sinh viên</h6>
+                        <input class="" type="text" id="tim-kiem-sinh-vien" name="">
+                        <br>
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên Sinh Viên</th>
+                            <th>Mã Sinh Viên</th>
+                            <th>Lớp</th>
+                            <th>Khóa</th>
+                            <th>Điểm Toán</th>
+                            <th>Điểm Lý</th>
+                            <th>Điểm Hóa</th>
+                            <th>Thao Tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="danh-sach-sinh-vien">
+                    </tbody>
+                </table>
+            </div>
+            <!-- end col-md-9 -->
+        </div>
+        <!-- end row -->
+    </div>
+    <!-- kết thúc quản lý Sinh vien -->
+    <script>
+        window.onload = function (e) {
+            createKhoaHoc();
+            createLopHoc();
+            createSinhVien();
+        }
+    </script>
+</body>
+
+</html>
